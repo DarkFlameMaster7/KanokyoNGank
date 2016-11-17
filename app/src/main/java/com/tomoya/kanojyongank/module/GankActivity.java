@@ -64,6 +64,7 @@ public class GankActivity extends BaseActivity {
     }
 
     private void initViews() {
+        mCanScrollClose = true;
         activityGank.setBackgroundColor(bgColor);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         adapter = new GankListAdapter(this, ganks);
@@ -128,4 +129,5 @@ public class GankActivity extends BaseActivity {
         if (results.休息视频List != null) ganks.addAll(0, results.休息视频List);
         return ganks;
     }
+
 }

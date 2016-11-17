@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -73,6 +74,7 @@ public class ShowActivity extends BaseActivity {
     * 记录上一个颜色
     * */
     private int mPreColor;
+
 
 
     @Override
@@ -151,12 +153,13 @@ public class ShowActivity extends BaseActivity {
      */
     private void setViewPagerScrollSpeed(ViewPager viewPager, int speed) {
         try {
-            Field field = ViewPager.class.getDeclaredField("mScroller");
+            Field field = ViewPager.class.getDeclaredField("mScroller");//动态修改类文件
             field.setAccessible(true);
             ViewPagerScroller viewPagerScroller = new ViewPagerScroller(viewPager.getContext(), new
                     OvershootInterpolator(0.6F));
-            field.set(viewPager, viewPagerScroller);
+            ;
             viewPagerScroller.setDuration(speed);
+            field.set(viewPager, viewPagerScroller);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -167,16 +170,17 @@ public class ShowActivity extends BaseActivity {
     private void loadData(int page) {
         subscription = Observable.zip(gankApi.getKanojyoData(page), gankApi.getShortFilmData(page), new
                 Func2<KanojyoData, ShortFilmData, KanojyoData>() {
-            @Override
-            public KanojyoData call(KanojyoData kanojyoData, ShortFilmData shortFilmData) {
-                return reconstructKanojyoData(kanojyoData, shortFilmData);
-            }})
+                    @Override
+                    public KanojyoData call(KanojyoData kanojyoData, ShortFilmData shortFilmData) {
+                        return reconstructKanojyoData(kanojyoData, shortFilmData);
+                    }
+                })
                 .map(new Func1<KanojyoData, List<Kanojyo>>() {
-            @Override
-            public List<Kanojyo> call(KanojyoData kanojyoData) {
-                return kanojyoData.results;
-            }
-        })
+                    @Override
+                    public List<Kanojyo> call(KanojyoData kanojyoData) {
+                        return kanojyoData.results;
+                    }
+                })
                 .compose(this.<List<Kanojyo>>bindToLifecycle())
                 .compose(RxUtils.<List<Kanojyo>>normalSchedulers())
                 .subscribe(new Observer<List<Kanojyo>>() {
@@ -283,16 +287,17 @@ public class ShowActivity extends BaseActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode==KeyEvent.KEYCODE_BACK){
-            if(System.currentTimeMillis()-mExitTime>2000){
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (System.currentTimeMillis() - mExitTime > 2000) {
                 Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
                 mExitTime = System.currentTimeMillis();
-            }
-            else{
+            } else {
                 finish();
             }
             return true;
         }
         return super.onKeyDown(keyCode, event);
     }
+
+
 }

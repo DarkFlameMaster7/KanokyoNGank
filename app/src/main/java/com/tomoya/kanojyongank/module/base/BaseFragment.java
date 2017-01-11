@@ -22,7 +22,8 @@ public abstract class BaseFragment extends Fragment {
     * 数据加载flag
     * */
     private boolean hasFetchData;
-    public abstract View initViews(LayoutInflater inflater);
+
+    public abstract View bindViews(LayoutInflater inflater);
     public abstract void initData();
     public abstract void initActions();
 
@@ -49,7 +50,7 @@ public abstract class BaseFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = initViews(inflater);
+        View view = bindViews(inflater);
         initActions();
         isViewPrepared = true;
         return view;

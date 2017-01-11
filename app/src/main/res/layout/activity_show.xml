@@ -1,77 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    android:id="@+id/activity_show"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:clipToPadding="true"
-    tools:context="com.tomoya.kanojyongank.module.ShowActivity">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_show"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="true"
+        android:fitsSystemWindows="true"
+        tools:context="com.tomoya.kanojyongank.module.ShowActivity"
+        tools:ignore="RtlHardcoded"
+        >
 
-    <ImageButton
-        android:id="@+id/btn_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginLeft="@dimen/activity_vertical_margin"
-        android:background="@color/translucent"
-        android:src="@drawable/logo"
-        android:textColor="@color/white"
-        android:textSize="25sp"/>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="@dimen/activity_vertical_margin">
-        <ImageButton
-            android:id="@+id/ibtn_rocket"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@color/translucent"
-            android:src="@drawable/selector_rocket"
-            android:visibility="gone"/>
-
-        <TextView
-            android:id="@+id/text_day"
+    <TextView
+            android:id="@+id/btn_logo"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:layout_marginRight="4dp"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:gravity="center"
+
+            android:text="@string/logo_name"
             android:textColor="@color/white"
-            android:textSize="36sp"
+            android:textSize="25sp"
             />
 
-        <TextView
-            android:id="@+id/text_date"
+    <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:textColor="@color/white"
-           />
+            android:layout_height="?attr/actionBarSize"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            >
+        <ImageButton
+                android:id="@+id/ibtn_rocket"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@color/translucent"
+                android:src="@drawable/selector_rocket"
+                android:visibility="gone"
+                />
+
+        <TextView
+                android:id="@+id/text_day"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="4dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/white"
+                android:textSize="36sp"
+                />
+
+        <TextView
+                android:id="@+id/text_date"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:textColor="@color/white"
+                />
     </LinearLayout>
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/vp_show"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="55dp"
-        android:layout_marginRight="@dimen/activity_vertical_margin"
-        android:layout_marginLeft="@dimen/activity_vertical_margin"
-        android:clipChildren="false"
-        android:clipToPadding="false"/>
+            android:id="@+id/vp_show"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:layout_marginTop="55dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            />
 
     <com.tomoya.rhythmview.RhythmView
-        android:id="@+id/rhythm_view"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:scrollbars="none">
+            android:id="@+id/rhythm_view"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:scrollbars="none"
+            >
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"/>
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                />
     </com.tomoya.rhythmview.RhythmView>
 </RelativeLayout>

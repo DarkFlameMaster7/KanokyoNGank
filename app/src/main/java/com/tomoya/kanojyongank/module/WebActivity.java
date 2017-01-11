@@ -5,13 +5,12 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Window;
-import android.view.WindowManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.RelativeLayout;
 
 import com.tomoya.kanojyongank.R;
+import com.tomoya.kanojyongank.widget.SlideLayout;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -37,9 +36,11 @@ public class WebActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
-        Window window = this.getWindow();
-        //translucent statusbar
-        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        //        Window window = this.getWindow();
+        //        //translucent statusbar
+        //        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        SlideLayout slideLayout = new SlideLayout(this);
+        slideLayout.bind(this);
         ButterKnife.bind(this);
         initData();
         initView();

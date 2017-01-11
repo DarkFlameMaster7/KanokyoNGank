@@ -7,10 +7,8 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -50,45 +48,35 @@ import static com.tomoya.kanojyongank.R.id.rhythm_view;
 public class ShowActivity extends BaseActivity {
     private static final String TAG = "ShowActicity";
 
-    @Bind(rhythm_view)
-    RhythmView rhythmView;
-    @Bind(R.id.vp_show)
-    ViewPager viewPager;
-    @Bind(R.id.activity_show)
-    View mMainView;
-    @Bind(R.id.btn_logo)
-    ImageButton btnLogo;
-    @Bind(R.id.ibtn_rocket)
-    ImageButton ibtnRocket;
-    @Bind(R.id.text_day)
-    TextView textDay;
-    @Bind(R.id.text_date)
-    TextView textDate;
-    private KanojyoPagerAdapter fragmentAdapter;
-    private List<Kanojyo> kanojyoTachi;
+    @Bind(rhythm_view)        RhythmView  rhythmView;
+    @Bind(R.id.vp_show)       ViewPager   viewPager;
+    @Bind(R.id.activity_show) View        mMainView;
+    @Bind(R.id.btn_logo)      TextView    btnLogo;
+    @Bind(R.id.ibtn_rocket)   ImageButton ibtnRocket;
+    @Bind(R.id.text_day)      TextView    textDay;
+    @Bind(R.id.text_date)     TextView    textDate;
 
-    private RhythmViewAdapter adapter;
+    private KanojyoPagerAdapter fragmentAdapter;
+    private RhythmViewAdapter   adapter;
+
     private long mExitTime = 0;
+    private List<Kanojyo> kanojyoTachi;
 
     /*
     * 记录上一个颜色
     * */
     private int mPreColor;
 
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show);
         ButterKnife.bind(this);
         Window window = this.getWindow();
         //translucent statusbar
-        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        //        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         //绘制完成后加载数据
         window.getDecorView().post(new Runnable() {
-            @Override
-            public void run() {
+            @Override public void run() {
                 loadData(1);
             }
         });
@@ -103,8 +91,7 @@ public class ShowActivity extends BaseActivity {
 
     public void initActions() {
         rhythmView.setListener(new IChangePagerListener() {
-            @Override
-            public void onSelected(final int position) {
+            @Override public void onSelected(final int position) {
                 new Handler().postDelayed(new Runnable() {
                     public void run() {
                         viewPager.setCurrentItem(position);
@@ -114,11 +101,10 @@ public class ShowActivity extends BaseActivity {
         });
     }
 
-
     public void initViews() {
         //rhythmview
-        int height = (int) rhythmView.getItemWidth() + (int) TypedValue.applyDimension(TypedValue
-                .COMPLEX_UNIT_DIP, 10.0F, getResources().getDisplayMetrics());
+        int height = (int) rhythmView.getItemWidth() + (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 10.0F, getResources().getDisplayMetrics());
         rhythmView.getLayoutParams().height = height;
         adapter = new RhythmViewAdapter(this, rhythmView, kanojyoTachi);
         rhythmView.setAdapter(adapter);
@@ -131,8 +117,7 @@ public class ShowActivity extends BaseActivity {
         setViewPagerScrollSpeed(viewPager, 400);
     }
 
-    @OnPageChange(R.id.vp_show)
-    void onPageSelected(int position) {
+    @OnPageChange(R.id.vp_show) void onPageSelected(int position) {
         //set background color
         int currColor = kanojyoTachi.get(position).color;
         AnimatorUtils.showBgColorAnimation(mMainView, mPreColor, currColor, 400);
@@ -140,8 +125,7 @@ public class ShowActivity extends BaseActivity {
         moveAppPager(position);
     }
 
-    @OnClick(R.id.ibtn_rocket)
-    void toFirstPage() {
+    @OnClick(R.id.ibtn_rocket) void toFirstPage() {
         viewPager.setCurrentItem(0);
     }
 
@@ -149,14 +133,14 @@ public class ShowActivity extends BaseActivity {
      * 设置ViewPager的滚动速度，即每个选项卡的切换速度
      *
      * @param viewPager ViewPager控件
-     * @param speed     滚动速度，毫秒为单位
+     * @param speed 滚动速度，毫秒为单位
      */
     private void setViewPagerScrollSpeed(ViewPager viewPager, int speed) {
         try {
             Field field = ViewPager.class.getDeclaredField("mScroller");//动态修改类文件
             field.setAccessible(true);
-            ViewPagerScroller viewPagerScroller = new ViewPagerScroller(viewPager.getContext(), new
-                    OvershootInterpolator(0.6F));
+            ViewPagerScroller viewPagerScroller =
+                    new ViewPagerScroller(viewPager.getContext(), new OvershootInterpolator(0.6F));
             ;
             viewPagerScroller.setDuration(speed);
             field.set(viewPager, viewPagerScroller);
@@ -168,50 +152,43 @@ public class ShowActivity extends BaseActivity {
     }
 
     private void loadData(int page) {
-        subscription = Observable.zip(gankApi.getKanojyoData(page), gankApi.getShortFilmData(page), new
-                Func2<KanojyoData, ShortFilmData, KanojyoData>() {
+        subscription = Observable.zip(gankApi.getKanojyoData(page), gankApi.getShortFilmData(page),
+                new Func2<KanojyoData, ShortFilmData, KanojyoData>() {
                     @Override
                     public KanojyoData call(KanojyoData kanojyoData, ShortFilmData shortFilmData) {
                         return reconstructKanojyoData(kanojyoData, shortFilmData);
                     }
                 })
-                .map(new Func1<KanojyoData, List<Kanojyo>>() {
-                    @Override
-                    public List<Kanojyo> call(KanojyoData kanojyoData) {
-                        return kanojyoData.results;
-                    }
-                })
-                .compose(this.<List<Kanojyo>>bindToLifecycle())
-                .compose(RxUtils.<List<Kanojyo>>normalSchedulers())
-                .subscribe(new Observer<List<Kanojyo>>() {
-                    @Override
-                    public void onCompleted() {
-                    }
+                                 .map(new Func1<KanojyoData, List<Kanojyo>>() {
+                                     @Override public List<Kanojyo> call(KanojyoData kanojyoData) {
+                                         return kanojyoData.results;
+                                     }
+                                 })
+                                 .compose(this.<List<Kanojyo>>bindToLifecycle())
+                                 .compose(RxUtils.<List<Kanojyo>>normalSchedulers())
+                                 .subscribe(new Observer<List<Kanojyo>>() {
+                                     @Override public void onCompleted() {
+                                     }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.e("Rx", "onError: " + e);
-                    }
+                                     @Override public void onError(Throwable e) {
+                                         Log.e("Rx", "onError: " + e);
+                                     }
 
-                    @Override
-                    public void onNext(List<Kanojyo> kanojyos) {
-                        if (kanojyos == null)
-                            return;
-                        //notify data
-                        kanojyoTachi.addAll(kanojyos);
-                        reportFullyDrawn();//加载完毕后view绘制完成时间
-                        adapter.notifyDataSetChanged();
-                        fragmentAdapter.refresh();
-                        moveAppPager(0);
-                    }
-                });
+                                     @Override public void onNext(List<Kanojyo> kanojyos) {
+                                         if (kanojyos == null) return;
+                                         //notify data
+                                         kanojyoTachi.addAll(kanojyos);
+                                         reportFullyDrawn();//加载完毕后view绘制完成时间
+                                         adapter.notifyDataSetChanged();
+                                         fragmentAdapter.refresh();
+                                         moveAppPager(0);
+                                     }
+                                 });
         addSubscription(subscription);
     }
 
     /**
      * 移动到相应位置并设置背景颜色和rocket  caution:在view绘制完成后调用
-     *
-     * @param position
      */
     private void moveAppPager(int position) {
         rhythmView.moveToSelectedPosition(position);
@@ -224,11 +201,9 @@ public class ShowActivity extends BaseActivity {
 
     /**
      * 添加颜色属性
-     *
-     * @param kanojyoData
-     * @return
      */
-    private KanojyoData reconstructKanojyoData(KanojyoData kanojyoData, ShortFilmData shortFilmData) {
+    private KanojyoData reconstructKanojyoData(KanojyoData kanojyoData,
+            ShortFilmData shortFilmData) {
         for (int i = 0; i < kanojyoData.results.size(); i++) {
             Kanojyo kanojyo = kanojyoData.results.get(i);
             kanojyo.color = (int) -(Math.random() * (16777216 - 1) + 1);
@@ -282,11 +257,9 @@ public class ShowActivity extends BaseActivity {
                 }
             });
         }
-
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
+    @Override public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (System.currentTimeMillis() - mExitTime > 2000) {
                 Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
@@ -298,6 +271,4 @@ public class ShowActivity extends BaseActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
-
-
 }

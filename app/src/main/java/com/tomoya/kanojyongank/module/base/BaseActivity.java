@@ -2,29 +2,31 @@ package com.tomoya.kanojyongank.module.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
-import android.view.MotionEvent;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.tomoya.kanojyongank.network.KanojyoRetrofit;
 import com.tomoya.kanojyongank.network.api.GankApi;
-import com.tomoya.kanojyongank.util.ScreenUtils;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
 public class BaseActivity extends RxAppCompatActivity {
-    int mStartX, mLastX;
     public static GankApi gankApi = new KanojyoRetrofit().getGankApi();
     CompositeSubscription compositeSubscription;
     public Subscription subscription;
-    public boolean mCanScrollClose = false;
+
+    public boolean mCanSlideExit = false;
 
 //    public abstract void initData();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Window window = this.getWindow();
+        //translucent statusbar
+        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
     }
 
     public CompositeSubscription getCompositeSubscription() {
@@ -49,26 +51,4 @@ public class BaseActivity extends RxAppCompatActivity {
     }
 
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-
-        int x = (int) event.getRawX();
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                mStartX = x;
-                return true;
-            case MotionEvent.ACTION_MOVE:
-                mLastX = x;
-                return true;
-            case MotionEvent.ACTION_CANCEL:
-            case MotionEvent.ACTION_UP:
-                Log.e("Test", "onTouchEvent: "+(mLastX - mStartX));
-                if (mCanScrollClose&&(mLastX - mStartX) > ScreenUtils.getScreenWidth(this)/3) {
-                    Log.e("Test", "onTouchEvent: in");
-                    this.finish();
-                }
-                break;
-        }
-        return super.onTouchEvent(event);
-    }
 }

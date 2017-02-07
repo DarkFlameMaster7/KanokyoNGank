@@ -1,85 +1,91 @@
 apply plugin: 'com.android.application'
+
 def config = rootProject.ext.android
 // 配置
 def dep = rootProject.ext.dependencies
 // 依赖
 android {
-    compileSdkVersion config.compileSdkVersion
-    buildToolsVersion config.buildToolsVersion
-    defaultConfig {
-        applicationId config.applicationId
-        minSdkVersion config.minSdkVersion
-        targetSdkVersion config.targetSdkVersion
-        versionCode config.versionCode
-        versionName config.versionName
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        //        jackOptions {
-        //            enabled true
-        //        }
+  compileSdkVersion config.compileSdkVersion
+  buildToolsVersion config.buildToolsVersion
+  defaultConfig {
+    applicationId config.applicationId
+    minSdkVersion config.minSdkVersion
+    targetSdkVersion config.targetSdkVersion
+    versionCode config.versionCode
+    versionName config.versionName
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    jackOptions {
+      enabled true
     }
+  }
+  //  dexOptions {
+  //    incremental true
+  //  }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+  //处理冲突
+  packagingOptions {
+    exclude 'META-INF/DEPENDENCIES.txt'
+    exclude 'META-INF/LICENSE.txt'
+    exclude 'META-INF/NOTICE.txt'
+    exclude 'META-INF/NOTICE'
+    exclude 'META-INF/LICENSE'
+    exclude 'META-INF/DEPENDENCIES'
+    exclude 'META-INF/notice.txt'
+    exclude 'META-INF/license.txt'
+    exclude 'META-INF/dependencies.txt'
+    exclude 'META-INF/LGPL2.1'
+  }
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
 
-    //处理冲突
-    packagingOptions {
-        exclude 'META-INF/DEPENDENCIES.txt'
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/NOTICE.txt'
-        exclude 'META-INF/NOTICE'
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/DEPENDENCIES'
-        exclude 'META-INF/notice.txt'
-        exclude 'META-INF/license.txt'
-        exclude 'META-INF/dependencies.txt'
-        exclude 'META-INF/LGPL2.1'
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-    //    compileOptions {
-    //        sourceCompatibility JavaVersion.VERSION_1_8
-    //        targetCompatibility JavaVersion.VERSION_1_8
-    //    }
-    //静态代码
-    lintOptions {
-        disable "InvalidPackage"
-        lintConfig file("lint.xml")
-    }
-    lintOptions {
-        disable 'MissingTranslation', 'ExtraTranslation'
-    }
+  //静态代码
+  lintOptions {
+    disable "InvalidPackage"
+    lintConfig file("lint.xml")
+  }
+  lintOptions {
+    disable 'MissingTranslation', 'ExtraTranslation'
+  }
 
-    lintOptions {
-        abortOnError false
-    }
+  lintOptions {
+    abortOnError false
+  }
 }
 
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile dep["design"]
-    compile dep["appcompat-v7"]
-    compile dep["support-v4"]
-    compile dep["recyclerview-v7"]
-    compile dep["photoview"]
-    compile dep["retrofit"]
-    compile dep["rxjava"]
-    compile dep["rxandroid"]
-    compile dep["rxbinding"]
-    compile dep["retrofit-rxadapter"]
-    compile dep["retrofit-converter"]
-    compile dep["butterknife"]
-    compile dep["okhttp"]
-    compile dep["glide"]
-    compile dep["okhttp-logging"]
-    compile dep["cardview"]
-    compile dep["rxlifecycle"]
-    compile dep["rxlifecycle-comp"]
-    compile dep["fresco"]
-    compile project(':rhythmview')
-    testCompile 'junit:junit:4.12'
+  compile fileTree(include: ['*.jar'], dir: 'libs')
+  androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    exclude group: 'com.android.support', module: 'support-annotations'
+  })
+  compile dep["design"]
+  compile dep["appcompat-v7"]
+  compile dep["support-v4"]
+  compile dep["recyclerview-v7"]
+  compile dep["photoview"]
+  compile dep["retrofit"]
+  compile dep["rxjava"]
+  compile dep["rxandroid"]
+  compile dep["rxbinding"]
+  compile dep["retrofit-rxadapter"]
+  compile dep["retrofit-converter"]
+  compile dep["butterknife"]
+  compile dep["okhttp"]
+  compile dep["okhttp-logging"]
+  compile dep["cardview"]
+  compile dep["rxlifecycle"]
+  compile dep["rxlifecycle-comp"]
+  compile dep["fresco"]
+  compile dep["dagger"]
+  annotationProcessor dep["dagger-complier"]
+
+  compile project(':rhythmview')
+  testCompile 'junit:junit:4.12'
 }

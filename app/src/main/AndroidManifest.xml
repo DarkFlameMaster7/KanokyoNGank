@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.tomoya.kanojyongank"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tomoya.kanojyongank">
 
     <uses-permission android:name="android.permission.INTERNET"/>
 

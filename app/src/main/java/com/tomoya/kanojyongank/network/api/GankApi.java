@@ -21,7 +21,7 @@ public interface GankApi {
     @GET("day/{year}/{month}/{day}")
     Observable<GankData> getGankData(@Path("year") int year, @Path("month") int month, @Path("day") int day);
 
-    //休閒視頻 http://gank.io/api/data/休视频/10/1
+    //休閒視頻 http://gank.io/api/data/休息视频/10/1
     @GET("data/休息视频/10/{page}")
     Observable<ShortFilmData> getShortFilmData(@Path("page") int page);
 }

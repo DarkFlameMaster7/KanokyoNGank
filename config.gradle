@@ -1,33 +1,57 @@
 ext {
-    android = [
-            compileSdkVersion: 24,
-            buildToolsVersion: "24.0.1",
-            applicationId    : "com.tomoya.kanojyongank",
-            minSdkVersion    : 19,
-            targetSdkVersion : 24,
-            versionCode      : 1,
-            versionName      : "1.0"
+  configVersion = [
+          supportVersion: "24.2.0",
+          retrofit      : "2.0.0",
+          okhttp        : "3.2.0",
+          rxjava        : "1.1.0",
+          rxandroid     : "1.1.0",
+          rxlifecycle   : "0.3.0",
+          rxbinding     : "0.4.0",
+          butterknife   : "7.0.1",
+          fresco        : "1.0.0",
+          dagger        : "2.2"
+  ]
 
-    ]
-    dependencies = [
-            "support-v4"          :"com.android.support:support-v4:24.2.0",
-            "appcompat-v7"        : "com.android.support:appcompat-v7:24.2.0",
-            "design"              : "com.android.support:design:24.2.0",
-            "recyclerview-v7"   : "com.android.support:recyclerview-v7:24.2.0",
-            "photoview"         : "com.github.chrisbanes.photoview:library:1.2.3",
-            "retrofit-converter": "com.squareup.retrofit2:converter-gson:2.0.0",
-            "retrofit-rxadapter": "com.squareup.retrofit2:adapter-rxjava:2.0.0",
-            "retrofit"          : "com.squareup.retrofit2:retrofit:2.0.0",
-            "rxandroid"         : "io.reactivex:rxandroid:1.1.0",
-            "rxbinding"         : "com.jakewharton.rxbinding:rxbinding:0.4.0",
-            "rxjava"            : "io.reactivex:rxjava:1.1.0",
-            "okhttp"            : "com.squareup.okhttp3:okhttp:3.2.0",
-            "okhttp-logging"    : "com.squareup.okhttp3:logging-interceptor:3.2.0",
-            "butterknife"       : "com.jakewharton:butterknife:7.0.1",
-            "glide"             : "com.github.bumptech.glide:glide:3.7.0",
-            "cardview"          : "com.android.support:cardview-v7:24.2.0",
-            "rxlifecycle"       : "com.trello:rxlifecycle:0.3.0",
-            "rxlifecycle-comp"  : "com.trello:rxlifecycle-components:0.3.0",
-            "fresco"            : "com.facebook.fresco:fresco:1.0.0"
-    ]
+  dependencies = [
+
+          "support-v4"        : "com.android.support:support-v4:$configVersion.supportVersion",
+          "appcompat-v7"      : "com.android.support:appcompat-v7:$configVersion.supportVersion",
+          "design"            : "com.android.support:design:$configVersion.supportVersion",
+          "recyclerview-v7"   : "com.android.support:recyclerview-v7:$configVersion.supportVersion",
+          "cardview"          : "com.android.support:cardview-v7:$configVersion.supportVersion",
+
+
+
+          "dagger-complier"   : "com.google.dagger:dagger-compiler:$configVersion.dagger",
+          "dagger"            : "com.google.dagger:dagger:$configVersion.dagger",
+          "butterknife"       : "com.jakewharton:butterknife:$configVersion.butterknife",
+
+          "retrofit-converter": "com.squareup.retrofit2:converter-gson:$configVersion.retrofit",
+          "retrofit-rxadapter": "com.squareup.retrofit2:adapter-rxjava:$configVersion.retrofit",
+          "retrofit"          : "com.squareup.retrofit2:retrofit:$configVersion.retrofit",
+
+          "okhttp"            : "com.squareup.okhttp3:okhttp:$configVersion.okhttp",
+          "okhttp-logging"    : "com.squareup.okhttp3:logging-interceptor:$configVersion.okhttp",
+
+          "rxjava"            : "io.reactivex:rxjava:$configVersion.rxjava",
+          "rxandroid"         : "io.reactivex:rxandroid:$configVersion.rxandroid",
+          "rxbinding"         : "com.jakewharton.rxbinding:rxbinding:$configVersion.rxbinding",
+          "rxlifecycle"       : "com.trello:rxlifecycle:$configVersion.rxlifecycle",
+          "rxlifecycle-comp"  : "com.trello:rxlifecycle-components:$configVersion.rxlifecycle",
+
+          "fresco"            : "com.facebook.fresco:fresco:$configVersion.fresco",
+
+          "photoview"         : "com.github.chrisbanes.photoview:library:1.2.3",
+
+  ]
+  android = [
+          compileSdkVersion: 24,
+          buildToolsVersion: "24.0.1",
+          applicationId    : "com.tomoya.kanojyongank",
+          minSdkVersion    : 19,
+          targetSdkVersion : 24,
+          versionCode      : 1,
+          versionName      : "1.0"
+
+  ]
 }

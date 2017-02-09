@@ -1,43 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tomoya.kanojyongank">
+    package="me.tomoya.kanojyongank">
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-            android:name=".GankApplication"
+        android:name="me.tomoya.kanojyongank.GankApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".module.ShowActivity"
+            android:name="me.tomoya.kanojyongank.module.main.ShowActivity"
             android:label="@string/title_activity_main"
                 android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
-        <activity android:name=".module.base.BaseActivity">
-        </activity>
-        <!-- <activity android:name=".module.ShowActivity" -->
-        <!-- android:theme="@style/AppTheme.NoActionBar" -->
 
-
-        <!-- &gt; -->
-        <!-- </activity> -->
         <activity
-            android:name=".module.GankActivity"
+            android:name="me.tomoya.kanojyongank.module.gank.GankActivity"
                 android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".module.WebActivity"
+            android:name="me.tomoya.kanojyongank.module.detail.WebActivity"
                 android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-                android:name=".module.SplashActivity"
+            android:name="me.tomoya.kanojyongank.module.splash.SplashActivity"
                 android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>

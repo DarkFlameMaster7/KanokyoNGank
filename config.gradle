@@ -7,7 +7,7 @@ ext {
           rxandroid     : "1.1.0",
           rxlifecycle   : "0.3.0",
           rxbinding     : "0.4.0",
-          butterknife   : "7.0.1",
+          butterknife   : "8.2.1",
           fresco        : "1.0.0",
           dagger        : "2.2"
   ]
@@ -47,7 +47,7 @@ ext {
   android = [
           compileSdkVersion: 24,
           buildToolsVersion: "24.0.1",
-          applicationId    : "com.tomoya.kanojyongank",
+          applicationId    : "me.tomoya.kanojyongank",
           minSdkVersion    : 19,
           targetSdkVersion : 24,
           versionCode      : 1,

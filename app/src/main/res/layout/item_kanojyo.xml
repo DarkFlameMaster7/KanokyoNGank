@@ -7,7 +7,7 @@
     app:cardCornerRadius="7dp"
     android:layout_margin="3dp">
 
-    <com.tomoya.kanojyongank.widget.KanojyoImageView
+    <me.tomoya.kanojyongank.widget.KanojyoImageView
         android:id="@+id/img_kanojyo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

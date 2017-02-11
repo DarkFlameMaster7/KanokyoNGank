@@ -7,7 +7,7 @@
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
     android:background="@drawable/bg_fragment"
-    tools:context="me.tomoya.kanojyongank.module.main.KanojyoFragment"
+    tools:context="me.tomoya.kanojyongank.module.gank.ui.KanojyoFragment"
 >
   <!-- TODO: Update blank fragment layout -->
   <RelativeLayout

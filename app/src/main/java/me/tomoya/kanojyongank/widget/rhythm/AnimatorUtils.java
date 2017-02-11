@@ -11,25 +11,28 @@ import android.view.animation.OvershootInterpolator;
  */
 
 public class AnimatorUtils {
-    public static Animator showUpAndDownBounce(View view, int translationY, int animatorTime, boolean isStartAnimator, boolean isStartInterpolator) {
-        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(view, "translationY", translationY);
-        if (isStartInterpolator) {
-            objectAnimator.setInterpolator(new OvershootInterpolator());
-        }
-        objectAnimator.setDuration(animatorTime);
-        if (isStartAnimator) {
-            objectAnimator.start();
-        }
-        return objectAnimator;
-    }
-    public static Animator moveScrollViewToX(View view,int toX,int time,int delayTime,boolean isStart) {
-        ObjectAnimator objectAnimator = ObjectAnimator.ofInt(view,"scrollX",new int[]{toX});
-        objectAnimator.setDuration(time);
-        objectAnimator.setInterpolator( new AccelerateDecelerateInterpolator());
-        objectAnimator.setStartDelay(delayTime);
-        if(isStart)
-            objectAnimator.start();
-        return objectAnimator;
-    }
+	public static Animator showUpAndDownBounce(View view, int translationY, int animatorTime,
+			boolean isStartAnimator, boolean isStartInterpolator) {
+		ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(view, "translationY", translationY);
+		if (isStartInterpolator) {
+			objectAnimator.setInterpolator(new OvershootInterpolator());
+		}
+		objectAnimator.setDuration(animatorTime);
+		if (isStartAnimator) {
+			objectAnimator.start();
+		}
+		return objectAnimator;
+	}
 
+	public static Animator moveScrollViewToX(View view, int toX, int time, int delayTime,
+			boolean isStart) {
+		ObjectAnimator objectAnimator = ObjectAnimator.ofInt(view, "scrollX", new int[] {toX});
+		objectAnimator.setDuration(time);
+		objectAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
+		objectAnimator.setStartDelay(delayTime);
+		if (isStart) {
+			objectAnimator.start();
+		}
+		return objectAnimator;
+	}
 }

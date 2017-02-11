@@ -1,4 +1,4 @@
-package me.tomoya.kanojyongank.module.gank.adapter;
+package me.tomoya.kanojyongank.module.gank.ui.adapter;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
@@ -8,16 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import java.util.List;
 import me.tomoya.kanojyongank.R;
 import me.tomoya.kanojyongank.bean.Gank;
 import me.tomoya.kanojyongank.callback.OnItemClickListener;
-
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by Tomoya-Hoo on 2016/11/4.
@@ -84,14 +81,10 @@ public class GankListAdapter extends RecyclerView.Adapter<GankListAdapter.GankVi
 	}
 
 	class GankViewHolder extends RecyclerView.ViewHolder {
-		@Bind(R.id.tv_category)
-		TextView     tvCategory;
-		@Bind(R.id.tv_title)
-		TextView     tvTitle;
-		@Bind(R.id.ll_gank_parent)
-		LinearLayout llGankParent;
-		@Bind(R.id.divider)
-		View         divider;
+		@BindView(R.id.tv_category)    TextView     tvCategory;
+		@BindView(R.id.tv_title)       TextView     tvTitle;
+		@BindView(R.id.ll_gank_parent) LinearLayout llGankParent;
+		@BindView(R.id.divider)        View         divider;
 
 		public GankViewHolder(View itemView) {
 			super(itemView);

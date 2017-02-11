@@ -5,5 +5,5 @@ package me.tomoya.kanojyongank.widget.rhythm;
  */
 
 public interface IChangePagerListener {
-    void onSelected(int position);
+	void onSelected(int position);
 }

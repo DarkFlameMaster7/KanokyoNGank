@@ -10,35 +10,33 @@ import android.widget.ImageView;
  */
 
 public class KanojyoImageView extends ImageView {
-    private int currentWidth;
-    private int currentHeight;
+	private int currentWidth;
+	private int currentHeight;
 
-    public void setKanojyoSize(int currentWidth,int currentHeight) {
-        this.currentWidth = currentWidth;
-        this.currentHeight = currentHeight;
-    }
+	public void setKanojyoSize(int currentWidth, int currentHeight) {
+		this.currentWidth = currentWidth;
+		this.currentHeight = currentHeight;
+	}
 
+	public KanojyoImageView(Context context) {
+		super(context);
+	}
 
-    public KanojyoImageView(Context context) {
-        super(context);
-    }
+	public KanojyoImageView(Context context, AttributeSet attrs) {
+		super(context, attrs);
+	}
 
-    public KanojyoImageView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
+	public KanojyoImageView(Context context, AttributeSet attrs, int defStyleAttr) {
+		super(context, attrs, defStyleAttr);
+	}
 
-    public KanojyoImageView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-    }
+	@Override
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		super.onMeasure(widthMeasureSpec, widthMeasureSpec);
+	}
 
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, widthMeasureSpec);
-
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return super.onTouchEvent(event);
-    }
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		return super.onTouchEvent(event);
+	}
 }

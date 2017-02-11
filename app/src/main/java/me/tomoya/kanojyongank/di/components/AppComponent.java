@@ -6,7 +6,7 @@ import dagger.Component;
 import javax.inject.Singleton;
 import me.tomoya.kanojyongank.di.modules.AppModule;
 import me.tomoya.kanojyongank.di.modules.NetModule;
-import retrofit2.Retrofit;
+import me.tomoya.kanojyongank.network.RetrofitWrapper;
 
 /**
  * Created by piper on 17-2-7.
@@ -17,7 +17,7 @@ public interface AppComponent {
 
 	Application getApplication();
 
-	Retrofit getRetrofit();
+	RetrofitWrapper getRetrofitWrapper();
 
 	SharedPreferences getSharedPreference();
 }

@@ -15,7 +15,7 @@ import me.tomoya.kanojyongank.di.modules.NetModule;
 
 public class GankApplication extends Application {
 	private static GankApplication instance;
-	AppComponent appComponent;
+	public static  AppComponent    appComponent;
 
 	@Override public void onCreate() {
 		super.onCreate();
@@ -28,7 +28,13 @@ public class GankApplication extends Application {
 		initFresco();
 	}
 
-	public AppComponent getAppComponent() {
+	public static AppComponent getAppComponent() {
+		if (appComponent == null) {
+			appComponent = DaggerAppComponent.builder()
+					.appModule(new AppModule(instance))
+					.netModule(new NetModule())
+					.build();
+		}
 		return appComponent;
 	}
 

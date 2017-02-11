@@ -1,4 +1,4 @@
-package me.tomoya.kanojyongank.module.detail;
+package me.tomoya.kanojyongank.module.gank.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,21 +7,19 @@ import android.os.Bundle;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.RelativeLayout;
-
+import butterknife.BindView;
 import me.tomoya.kanojyongank.R;
 import me.tomoya.kanojyongank.annotation.PropertiesInject;
-import me.tomoya.kanojyongank.base.BaseActivity;
-
-import butterknife.Bind;
+import me.tomoya.kanojyongank.base.SimpleActivity;
 
 @PropertiesInject(contentViewId = R.layout.activity_web, enableSlideExit = true)
-public class WebActivity extends BaseActivity {
+public class WebActivity extends SimpleActivity {
 	private static final String FLAG_URL     = "web_url";
 	private static final String FLAG_BGCOLOR = "bg_clolr";
-	@Bind(R.id.webv_gank)
-	WebView        webvGank;
-	@Bind(R.id.container_web)
-	RelativeLayout activityWeb;
+
+	@BindView(R.id.webv_gank)     WebView        webvGank;
+	@BindView(R.id.container_web) RelativeLayout activityWeb;
+
 	private String url;
 	private int    bgColor;
 

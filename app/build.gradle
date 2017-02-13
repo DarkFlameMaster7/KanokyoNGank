@@ -14,17 +14,17 @@ android {
     versionCode config.versionCode
     versionName config.versionName
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-    jackOptions {
-      enabled true
-    }
+//    jackOptions {
+//      enabled true
+//    }
   }
   //  dexOptions {
   //    incremental true
   //  }
-  compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
-  }
+//  compileOptions {
+//    sourceCompatibility JavaVersion.VERSION_1_8
+//    targetCompatibility JavaVersion.VERSION_1_8
+//  }
   //处理冲突
   packagingOptions {
     exclude 'META-INF/DEPENDENCIES.txt'
@@ -65,15 +65,16 @@ dependencies {
   androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
     exclude group: 'com.android.support', module: 'support-annotations'
   })
-  compile dep["design"]
   compile dep["appcompat-v7"]
   compile dep["support-v4"]
   compile dep["recyclerview-v7"]
+  compile dep["design"]
   compile dep["photoview"]
   compile dep["retrofit"]
   compile dep["rxjava"]
   compile dep["rxandroid"]
   compile dep["rxbinding"]
+  compile 'com.jakewharton.rxbinding:rxbinding-support-v4:1.0.0'
   compile dep["retrofit-rxadapter"]
   compile dep["retrofit-converter"]
   compile dep["butterknife"]

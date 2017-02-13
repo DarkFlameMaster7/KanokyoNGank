@@ -34,8 +34,7 @@ public class MainPresenter extends RxPresenter<MainContract.View>
 	@Override
 	public void getDailyData() {
 		Subscription subscription = Observable.zip(mRetrofitWrapper.fetchKanojoData(1),
-				mRetrofitWrapper.fetchShortFilmData(1),
-				new Func2<KanojyoData, ShortFilmData, KanojyoData>() {
+				mRetrofitWrapper.fetchShortFilmData(1), new Func2<KanojyoData, ShortFilmData, KanojyoData>() {
 					@Override
 					public KanojyoData call(KanojyoData kanojyoData, ShortFilmData shortFilmData) {
 						return reconstructKanojyoData(kanojyoData, shortFilmData);

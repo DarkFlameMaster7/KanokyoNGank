@@ -10,57 +10,10 @@
     tools:context="me.tomoya.kanojyongank.module.gank.ui.ShowActivity"
     tools:ignore="RtlHardcoded"
 >
+  <include layout="@layout/view_toolbar_main"/>
 
-  <TextView
-      android:id="@+id/btn_logo"
-      android:layout_width="wrap_content"
-      android:layout_height="?attr/actionBarSize"
-      android:layout_marginLeft="@dimen/activity_vertical_margin"
-      android:gravity="center_vertical"
-      android:text="@string/logo_name"
-      android:textStyle="bold"
-      android:textColor="@color/white"
-      android:textSize="30sp"
-  />
 
-  <LinearLayout
-      android:layout_width="wrap_content"
-      android:layout_height="?attr/actionBarSize"
-      android:layout_alignParentEnd="true"
-      android:layout_marginRight="@dimen/activity_vertical_margin"
-  >
-    <ImageButton
-        android:id="@+id/ibtn_rocket"
-        android:layout_width="wrap_content"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/translucent"
-        android:src="@drawable/selector_rocket"
-        android:visibility="gone"
-    />
-
-    <TextView
-        android:id="@+id/text_day"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_gravity="center_vertical"
-        android:gravity="center_vertical"
-        android:textColor="@color/white"
-        android:textSize="36sp"
-    />
-
-    <TextView
-        android:id="@+id/text_date"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_vertical"
-        android:gravity="center_vertical"
-        android:textColor="@color/white"
-    />
-  </LinearLayout>
-
-  <android.support.v4.view.ViewPager
+  <me.tomoya.kanojyongank.widget.EzScrollViewPager
       android:id="@+id/vp_show"
       android:layout_width="match_parent"
       android:layout_height="match_parent"

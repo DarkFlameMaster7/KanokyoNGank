@@ -1,10 +1,11 @@
 <resources>
-  <string name="app_name">KanojyoNGank</string>
+  <string name="app_name">Gank-(゜-゜)つロ</string>
   <string name="action_settings">Settings</string>
-  <string name="title_activity_main">MainActivity</string>
+  <string name="title_activity_main">Gank</string>
 
   <!-- TODO: Remove or change this placeholder text -->
   <string name="hello_blank_fragment">Hello blank fragment</string>
 
   <string name="logo_name">Gank</string>
+  <string name="content_desc_arrow">expand/collapase</string>
 </resources>

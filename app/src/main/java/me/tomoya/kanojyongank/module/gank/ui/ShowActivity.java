@@ -3,19 +3,16 @@ package me.tomoya.kanojyongank.module.gank.ui;
 import android.animation.Animator;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.animation.OvershootInterpolator;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.BindView;
-import butterknife.OnClick;
 import butterknife.OnPageChange;
-import java.lang.reflect.Field;
+import com.jakewharton.rxbinding.view.RxView;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,21 +25,23 @@ import me.tomoya.kanojyongank.module.gank.presenter.contract.MainContract;
 import me.tomoya.kanojyongank.module.gank.ui.adapter.KanojyoPagerAdapter;
 import me.tomoya.kanojyongank.util.AnimatorUtils;
 import me.tomoya.kanojyongank.util.DateUtils;
-import me.tomoya.kanojyongank.widget.ViewPagerScroller;
+import me.tomoya.kanojyongank.widget.EzScrollViewPager;
+import me.tomoya.kanojyongank.widget.rhythm.IChangePagerListener;
 import me.tomoya.kanojyongank.widget.rhythm.RhythmView;
 import me.tomoya.kanojyongank.widget.rhythm.RhythmViewAdapter;
+import rx.functions.Action1;
 
 @PropertiesInject(contentViewId = R.layout.activity_show, isStatusBarTranslucent = true)
 public class ShowActivity extends BaseActivity<MainPresenter> implements MainContract.View {
 	private static final String TAG = "ShowActicity";
 
-	@BindView(R.id.activity_show) View        mMainView;
-	@BindView(R.id.btn_logo)      TextView    btnLogo;
-	@BindView(R.id.text_date)     TextView    textDate;
-	@BindView(R.id.text_day)      TextView    textDay;
-	@BindView(R.id.vp_show)       ViewPager   viewPager;
-	@BindView(R.id.rhythm_view)   RhythmView  rhythmView;
-	@BindView(R.id.ibtn_rocket)   ImageButton ibtnRocket;
+	@BindView(R.id.activity_show) View              mMainView;
+	@BindView(R.id.btn_logo)      TextView          btnLogo;
+	@BindView(R.id.text_date)     TextView          textDate;
+	@BindView(R.id.text_day)      TextView          textDay;
+	@BindView(R.id.rhythm_view)   RhythmView        rhythmView;
+	@BindView(R.id.ibtn_rocket)   ImageButton       ibtnRocket;
+	@BindView(R.id.vp_show)       EzScrollViewPager viewPager;
 
 	private KanojyoPagerAdapter fragmentAdapter;
 	private RhythmViewAdapter   adapter;
@@ -73,8 +72,22 @@ public class ShowActivity extends BaseActivity<MainPresenter> implements MainCon
 	}
 
 	public void initActions() {
-		rhythmView.setListener(
-				position -> new Handler().postDelayed(() -> viewPager.setCurrentItem(position), 100L));
+		RxView.clicks(ibtnRocket).subscribe(new Action1<Void>() {
+			@Override
+			public void call(Void aVoid) {
+				viewPager.setCurrentItem(0);
+			}
+		});
+		rhythmView.setListener(new IChangePagerListener() {
+			@Override
+			public void onSelected(final int position) {
+				new Handler().postDelayed(new Runnable() {
+					public void run() {
+						viewPager.setCurrentItem(position);
+					}
+				}, 100L);
+			}
+		});
 	}
 
 	public void initViews() {
@@ -90,7 +103,6 @@ public class ShowActivity extends BaseActivity<MainPresenter> implements MainCon
 		((RelativeLayout.LayoutParams) viewPager.getLayoutParams()).bottomMargin = height;
 		viewPager.setPageMargin(50);
 		viewPager.setAdapter(fragmentAdapter);
-		setViewPagerScrollSpeed(viewPager, 400);
 	}
 
 	@OnPageChange(R.id.vp_show)
@@ -98,36 +110,15 @@ public class ShowActivity extends BaseActivity<MainPresenter> implements MainCon
 		//set background color
 		int currColor = kanojyoTachi.get(position).color;
 		AnimatorUtils.showBgColorAnimation(mMainView, mPreColor, currColor, 400);
+		AnimatorUtils.showBgColorAnimation(toolbar, mPreColor, currColor, 400);
 		mPreColor = currColor;
 		moveAppPager(position);
 	}
 
-	@OnClick(R.id.ibtn_rocket)
-	void toFirstPage() {
-		viewPager.setCurrentItem(0);
-	}
-
-	/**
-	 * 设置ViewPager的滚动速度，即每个选项卡的切换速度
-	 *
-	 * @param viewPager ViewPager控件
-	 * @param speed 滚动速度
-	 */
-	private void setViewPagerScrollSpeed(ViewPager viewPager, int speed) {
-		try {
-			Field field = ViewPager.class.getDeclaredField("mScroller");//动态修改类文件
-			field.setAccessible(true);
-			ViewPagerScroller viewPagerScroller = new ViewPagerScroller(viewPager.getContext(),
-					new OvershootInterpolator(0.6F));
-			;
-			viewPagerScroller.setDuration(speed);
-			field.set(viewPager, viewPagerScroller);
-		} catch (NoSuchFieldException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		}
-	}
+	//@OnClick(R.id.ibtn_rocket)
+	//void toFirstPage() {
+	//	viewPager.setCurrentItem(0);
+	//}
 
 	/**
 	 * 移动到相应位置并设置背景颜色和rocket  caution:在view绘制完成后调用
@@ -136,6 +127,7 @@ public class ShowActivity extends BaseActivity<MainPresenter> implements MainCon
 		rhythmView.moveToSelectedPosition(position);
 		if (kanojyoTachi != null && kanojyoTachi.size() > 0) {
 			mMainView.setBackgroundColor(kanojyoTachi.get(position).color);
+			toolbar.setBackgroundColor(kanojyoTachi.get(position).color);
 			setDateText(kanojyoTachi.get(position).publishedAt);
 		}
 		isRocketBtnShow(position);

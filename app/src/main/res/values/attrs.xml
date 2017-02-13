@@ -10,4 +10,10 @@
         <item>星期五</item>
         <item>星期六</item>
     </string-array>
+
+    <declare-styleable name="ViewPagerProp">
+        <attr format="integer" name="speed"/>
+        <attr format="float" name="shakeFactor"/>
+
+    </declare-styleable>
 </resources>

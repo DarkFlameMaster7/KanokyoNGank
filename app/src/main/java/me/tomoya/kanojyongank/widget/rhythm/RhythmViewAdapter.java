@@ -30,9 +30,7 @@ public class RhythmViewAdapter extends BaseAdapter {
 		this.mContext = context;
 		this.mList = list;
 		mRhythmView = rhythmView;
-		if (context != null) {
-			mInflater = LayoutInflater.from(context);
-		}
+		if (context != null) mInflater = LayoutInflater.from(context);
 	}
 
 	public void notifyDataSetChanged() {
@@ -56,30 +54,43 @@ public class RhythmViewAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public View getView(int i, View view, ViewGroup viewGroup) {
-		RelativeLayout relativeLayout = (RelativeLayout) this.mInflater.inflate(R.layout.item_rhythm,
-				null);
+	public View getView(int i, View relativeLayout, ViewGroup viewGroup) {
+		ViewHolder viewHolder = null;
+		if (relativeLayout == null) {
+			viewHolder = new ViewHolder();
+			relativeLayout = (RelativeLayout) this.mInflater.inflate(R.layout.item_rhythm,
+					null);
+			viewHolder.imageView = (ImageView) relativeLayout.findViewById(R.id.img_icon);
+			relativeLayout.setTag(viewHolder);
+		}else {
+			viewHolder = (ViewHolder) relativeLayout.getTag();
+		}
+		//RelativeLayout relativeLayout = (RelativeLayout) this.mInflater.inflate(R.layout.item_rhythm,
+		//		null);
 		relativeLayout.setLayoutParams(new RelativeLayout.LayoutParams((int) itemWidth,
 				mContext.getResources().getDimensionPixelSize(R.dimen.rhythm_item_height)));
 		relativeLayout.setTranslationY(itemWidth);
 
 		//设置第二层RelativeLayout布局的宽和高
-		RelativeLayout childRelativeLayout = (RelativeLayout) relativeLayout.getChildAt(0);
+		RelativeLayout childRelativeLayout = (RelativeLayout) ((RelativeLayout) relativeLayout).getChildAt(0);
 		int relativeLayoutWidth = (int) itemWidth - 2 * mContext.getResources()
 				.getDimensionPixelSize(R.dimen.rhythm_icon_margin);
 		childRelativeLayout.setLayoutParams(new RelativeLayout.LayoutParams(relativeLayoutWidth,
 				mContext.getResources().getDimensionPixelSize(R.dimen.rhythm_item_height)
 						- 2 * mContext.getResources().getDimensionPixelSize(R.dimen.rhythm_icon_margin)));
 
-		ImageView imageIcon = (ImageView) relativeLayout.findViewById(R.id.img_icon);
+		//ImageView imageIcon = (ImageView) relativeLayout.findViewById(R.id.img_icon);
 		//计算ImageView的大小
 		int iconSize = (relativeLayoutWidth - 2 * mContext.getResources()
 				.getDimensionPixelSize(R.dimen.rhythm_icon_margin));
-		ViewGroup.LayoutParams iconParams = imageIcon.getLayoutParams();
+		ViewGroup.LayoutParams iconParams = viewHolder.imageView.getLayoutParams();
 		iconParams.width = iconSize;
 		iconParams.height = iconSize;
-		imageIcon.setLayoutParams(iconParams);
-		// TODO: 2016/10/17 设置图片
+		viewHolder.imageView.setLayoutParams(iconParams);
 		return relativeLayout;
+	}
+
+	static class ViewHolder {
+		ImageView imageView;
 	}
 }

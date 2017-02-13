@@ -1,6 +1,7 @@
 package me.tomoya.kanojyongank.di.components;
 
 import android.app.Activity;
+import android.content.Context;
 import dagger.Component;
 import me.tomoya.kanojyongank.di.modules.ActivityModule;
 import me.tomoya.kanojyongank.di.scopes.GScope;
@@ -16,6 +17,8 @@ import me.tomoya.kanojyongank.module.splash.SplashActivity;
 @Component(dependencies = AppComponent.class, modules = ActivityModule.class)
 public interface ActivityComponent {
 	Activity getActivity();
+
+	Context getContext();
 
 	void inject(ShowActivity showActivity);
 

@@ -14,74 +14,76 @@ import java.util.List;
  */
 
 public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseAdapter.VH> {
-  private List<T> mDataList;
+	private List<T> mDataList;
 
-  public void setDataList(List<T> dataList) {
-    this.mDataList = dataList;
-  }
+	public void setDataList(List<T> dataList) {
+		this.mDataList = dataList;
+	}
 
-  public void addDataList(List<T> newData) {
-    this.mDataList.addAll(newData);
-    this.notifyDataSetChanged();
-  }
+	public void addDataList(List<T> newData) {
+		this.mDataList.addAll(newData);
+		this.notifyDataSetChanged();
+	}
 
-  /**
-   * set properties of views in holder
-   */
-  public abstract void bindView(VH holder, T data, int position);
+	/**
+	 * set properties of views in holder
+	 */
+	protected abstract void bindView(VH holder, List<T> data, int position);
 
-  /**
-   * bind layout
-   */
-  public abstract @LayoutRes int bindResourceId(int viewType);
+	/**
+	 * bind layout
+	 */
+	protected abstract @LayoutRes int bindResourceId(int viewType);
 
-  public int getItemViewType(int position) {
-    return position;
-  }
+	public int getItemViewType(int position) {
+		return position;
+	}
 
-  @Override public VH onCreateViewHolder(ViewGroup parent, int viewType) {
-    return VH.getVH(parent, bindResourceId(viewType));
-  }
+	@Override
+	public VH onCreateViewHolder(ViewGroup parent, int viewType) {
+		return VH.getVH(parent, bindResourceId(viewType));
+	}
 
-  @Override public void onBindViewHolder(VH holder, int position) {
-    bindView(holder, mDataList.get(position), position);
-  }
+	@Override
+	public void onBindViewHolder(VH holder, int position) {
+		bindView(holder, mDataList, position);
+	}
 
-  @Override public int getItemCount() {
-    return mDataList.size();
-  }
+	@Override
+	public int getItemCount() {
+		return mDataList.size();
+	}
 
-  static class VH extends RecyclerView.ViewHolder {
-    private SparseArray<View> mViews;
-    private View mConvertView;
+	protected static class VH extends RecyclerView.ViewHolder {
+		private SparseArray<View> mViews;
+		private View              mConvertView;
 
-    public VH(View itemView) {
-      super(itemView);
-      mConvertView = itemView;
-      mViews = new SparseArray<>();
-    }
+		VH(View itemView) {
+			super(itemView);
+			mConvertView = itemView;
+			mViews = new SparseArray<>();
+		}
 
-    /**
-     * initialize ViewHolder
-     */
-    public static VH getVH(ViewGroup parent, @LayoutRes int layoutId) {
+		/**
+		 * initialize ViewHolder
+		 */
+		static VH getVH(ViewGroup parent, @LayoutRes int layoutId) {
 
-      View view =
-          LayoutInflater.from(parent.getContext()).inflate(layoutId, null, false);
-      return new VH(view);
-    }
+			View view = LayoutInflater.from(parent.getContext()).inflate(layoutId, null, false);
+			return new VH(view);
+		}
 
-    /**
-     * Get child view of item by id
-     */
-    public <T extends View> T getView(int id) {
+		/**
+		 * Get child view of item by id
+		 */
+		public <T extends View> T getView(int id) {
 
-      View view = mViews.get(id);
-      if (view == null) {
-        view = mConvertView.findViewById(id);
-        mViews.put(id, view);
-      }
-      return (T) view;
-    }
-  }
+			View view = mViews.get(id);
+			if (view == null) {
+				view = mConvertView.findViewById(id);
+				mViews.put(id, view);
+			}
+			return (T) view;
+		}
+	}
 }

@@ -12,7 +12,6 @@ import me.tomoya.kanojyongank.network.RetrofitWrapper;
 import me.tomoya.kanojyongank.util.RxUtils;
 import rx.Observer;
 import rx.Subscription;
-import rx.functions.Func1;
 
 /**
  * Created by piper on 17-2-10.
@@ -25,21 +24,21 @@ public class GankPresenter extends RxPresenter<GankContract.View>
 	@Inject
 	public GankPresenter(RetrofitWrapper retrofitWrapper) {
 		this.mRetrofitWrapper = retrofitWrapper;
-		getGankData();
 	}
 
+
 	@Override
-	public void getGankData() {
-		Subscription subscription = mRetrofitWrapper.fetchGankData(1, 1, 1)
-				.map(new Func1<GankData, List<Gank>>() {
-					@Override
-					public List<Gank> call(GankData gankData) {
-						return addAllData2List(gankData.results);
-					}
-				})
+	public void getGankData(int year, int month, int day) {
+		Subscription subscription = mRetrofitWrapper.fetchGankData(year, month, day)
+				//.map(new Func1<GankData, List<Gank>>() {
+				//	@Override
+				//	public List<Gank> call(GankData gankData) {
+				//		return addAllData2List(gankData.results);
+				//	}
+				//})
 				//.compose(this.<List<Gank>>bindToLifecycle())
-				.compose(RxUtils.<List<Gank>>normalSchedulers())
-				.subscribe(new Observer<List<Gank>>() {
+				.compose(RxUtils.<GankData>normalSchedulers())
+				.subscribe(new Observer<GankData>() {
 					@Override
 					public void onCompleted() {
 
@@ -51,8 +50,8 @@ public class GankPresenter extends RxPresenter<GankContract.View>
 					}
 
 					@Override
-					public void onNext(List<Gank> list) {
-						mView.fetchData(list);
+					public void onNext(GankData gankData) {
+						mView.fetchData(gankData);
 					}
 				});
 		addSubscription(subscription);

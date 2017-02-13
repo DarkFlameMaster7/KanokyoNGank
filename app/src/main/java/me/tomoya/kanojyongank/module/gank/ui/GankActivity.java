@@ -3,35 +3,37 @@ package me.tomoya.kanojyongank.module.gank.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.RelativeLayout;
 import butterknife.BindView;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import javax.inject.Inject;
 import me.tomoya.kanojyongank.R;
 import me.tomoya.kanojyongank.annotation.PropertiesInject;
 import me.tomoya.kanojyongank.base.BaseActivity;
-import me.tomoya.kanojyongank.bean.Gank;
+import me.tomoya.kanojyongank.bean.GankData;
 import me.tomoya.kanojyongank.bean.Kanojyo;
 import me.tomoya.kanojyongank.module.gank.presenter.GankPresenter;
 import me.tomoya.kanojyongank.module.gank.presenter.contract.GankContract;
-import me.tomoya.kanojyongank.module.gank.ui.adapter.GankListAdapter;
+import me.tomoya.kanojyongank.module.gank.ui.adapter.ExpandableGankAdapter;
 import me.tomoya.kanojyongank.util.DateUtils;
 
 @PropertiesInject(contentViewId = R.layout.activity_gank, enableSlideExit = true,
 		isStatusBarTranslucent = true)
 public class GankActivity extends BaseActivity<GankPresenter> implements GankContract.View {
 	private static final String FLAG_START = "start_data";
+	private String mDateStr;
 
-	@BindView(R.id.rv_gank)       RecyclerView   rvGank;
-	@BindView(R.id.activity_gank) RelativeLayout activityGank;
+	@BindView(R.id.rv_gank)       RecyclerView      rvGank;
+	@BindView(R.id.activity_gank) CoordinatorLayout activityGank;
 
-	GankListAdapter adapter;
-	private List<Gank> ganks = new ArrayList<>();
+	//GankListAdapter adapter;
+	@Inject ExpandableGankAdapter gankAdapter;
+	//private List<Gank> ganks = new ArrayList<>();
 	private int bgColor;
+	private GankData mGankData = new GankData();
 
 	public static Intent newIntent(Context context, Kanojyo kanojyo) {
 		Intent intent = new Intent(context, GankActivity.class);
@@ -49,6 +51,7 @@ public class GankActivity extends BaseActivity<GankPresenter> implements GankCon
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getActivityComponent().inject(this);
+		mPresenter.attachView(this);
 		initData();
 		initViews();
 	}
@@ -57,22 +60,26 @@ public class GankActivity extends BaseActivity<GankPresenter> implements GankCon
 		Kanojyo kanojyo = (Kanojyo) getIntent().getSerializableExtra(FLAG_START);
 		Date date = kanojyo.publishedAt;
 		int[] ymd = DateUtils.divideDate(date);
-		loadData(ymd[0], ymd[1], ymd[2]);
+		mPresenter.getGankData(ymd[0], ymd[1], ymd[2]);
 		bgColor = kanojyo.color;
+		mDateStr = ymd[0] +"."+ ymd[1] +"."+  ymd[2];
 	}
 
 	private void initViews() {
 		activityGank.setBackgroundColor(bgColor);
+		this.setTitle(mDateStr);
+		//toolbar.setBackgroundColor(bgColor);
 		LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-		adapter = new GankListAdapter(this, ganks);
-		rvGank.setAdapter(adapter);
+		//adapter = new GankListAdapter(this, ganks);
+
+		//rvGank.setAdapter(gankAdapter);
 		rvGank.setLayoutManager(linearLayoutManager);
-		adapter.setItemClickListener((view, position) -> WebActivity.activityStart(GankActivity.this,
-				ganks.get(position).getUrl(), bgColor));
-	}
-
-	private void loadData(int year, int month, int day) {
-
+		//adapter.setItemClickListener(new OnItemClickListener() {
+		//	@Override
+		//	public void onItemClick(View view, int position) {
+		//		WebActivity.activityStart(GankActivity.this, ganks.get(position).getUrl(), bgColor);
+		//	}
+		//});
 	}
 
 	@Override
@@ -88,10 +95,13 @@ public class GankActivity extends BaseActivity<GankPresenter> implements GankCon
 	}
 
 	@Override
-	public void fetchData(List<Gank> dataList) {
-		ganks.addAll(dataList);
-		adapter.notifyDataSetChanged();
-		Log.e("Gank", "onNext: " + adapter.getItemCount());
+	public void fetchData(GankData data) {
+		Log.e("data", "fetchData: "+data.category.toString());
+		//ganks.addAll(dataList);
+		gankAdapter.setData(data);
+		//mGankData = data;
+		rvGank.setAdapter(gankAdapter);
+		gankAdapter.notifyDataSetChanged();
 	}
 
 	@Override

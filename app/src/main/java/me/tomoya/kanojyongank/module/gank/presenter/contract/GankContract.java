@@ -1,8 +1,7 @@
 package me.tomoya.kanojyongank.module.gank.presenter.contract;
 
-import java.util.List;
 import me.tomoya.kanojyongank.base.BaseContract;
-import me.tomoya.kanojyongank.bean.Gank;
+import me.tomoya.kanojyongank.bean.GankData;
 
 /**
  * Created by piper on 17-2-7.
@@ -10,10 +9,11 @@ import me.tomoya.kanojyongank.bean.Gank;
 
 public interface GankContract {
 	interface View extends BaseContract.View {
-		void fetchData(List<Gank> dataList);
+		void fetchData(GankData data);
 	}
 
 	interface Presenter extends BaseContract.Presenter<GankContract.View> {
-		void getGankData();
+
+		void getGankData(int year, int month, int day);
 	}
 }

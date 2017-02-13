@@ -27,37 +27,39 @@ import static android.content.ContentValues.TAG;
 
 public class RhythmView extends HorizontalScrollView {
 	private RhythmViewAdapter mAdapter;
+
 	/*
 	* Item宽度*/
-	private float             mItemWidth;
+	private float mItemWidth;
 	/*
 	* 屏幕宽度
 	* */
-	private int               mScreenWidth;
+	private int   mScreenWidth;
 	/*
 	* 当前item位置
 	* */
-	private int               mCurrentItemPosition;
+	private int   mCurrentItemPosition;
 	/*
 	* 上次选中位置
 	* */
-	private int               mLastDisplayItemPosition;
+	private int   mLastDisplayItemPosition;
 	/*
 	* ScrollView滚动动画延迟执行的时间
 	**/
-	private int               mScrollStartDelayTime;
+	private int   mScrollStartDelayTime;
 	/*
 	* item上下位移单位*/
-	private int               mIntervalHeight;
+	private int   mIntervalHeight;
 	/*
 	* 上下位移的最大高度
 	* */
-	private int               mMaxTranslationHeight;
+	private int   mMaxTranslationHeight;
 	/*
 	* 横向位移距离
 	* */
-	private int               mEdgeSizeForShiftRhythm;
-	private long              mFingerDownTime;
+	private int   mEdgeSizeForShiftRhythm;
+	private long  mFingerDownTime;
+
 	private ShiftMonitorTimer mTimer;
 
 	private Context              mContext;

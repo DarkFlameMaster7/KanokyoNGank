@@ -3,12 +3,10 @@ package me.tomoya.kanojyongank.module.gank.ui.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-
-import me.tomoya.kanojyongank.bean.Kanojyo;
-
-import me.tomoya.kanojyongank.module.gank.ui.KanojyoFragment;
 import java.util.ArrayList;
 import java.util.List;
+import me.tomoya.kanojyongank.bean.Kanojyo;
+import me.tomoya.kanojyongank.module.gank.ui.KanojyoFragment;
 
 /**
  * Created by Tomoya-Hoo on 2016/10/28.

@@ -1,6 +1,7 @@
 package me.tomoya.kanojyongank.di.modules;
 
 import android.app.Activity;
+import android.content.Context;
 import dagger.Module;
 import dagger.Provides;
 import me.tomoya.kanojyongank.di.scopes.GScope;
@@ -19,6 +20,11 @@ public class ActivityModule {
 	@Provides
 	@GScope
 	public Activity provideActivity() {
+		return mActivity;
+	}
+	@Provides
+	@GScope
+	public Context provideContext() {
 		return mActivity;
 	}
 }

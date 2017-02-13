@@ -15,17 +15,17 @@
         android:name=".module.gank.ui.ShowActivity"
         android:label="@string/title_activity_main"
         android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar">
+        >
     </activity>
     <activity
         android:name=".module.gank.ui.GankActivity"
         android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar">
+        >
     </activity>
     <activity
         android:name=".module.gank.ui.WebActivity"
         android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar">
+        >
     </activity>
     <activity
         android:name=".module.splash.SplashActivity"

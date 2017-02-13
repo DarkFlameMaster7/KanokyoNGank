@@ -8,7 +8,8 @@ import rx.subscriptions.CompositeSubscription;
  */
 
 public class RxPresenter<T extends BaseContract.View> implements BaseContract.Presenter<T> {
-	protected T                     mView;
+	protected T mView;
+
 	protected CompositeSubscription compositeSubscription;
 
 	@Override

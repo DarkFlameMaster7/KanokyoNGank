@@ -8,6 +8,11 @@ import me.tomoya.kanojyongank.GankApplication;
  */
 
 public class GContants {
+
+	public static final String FLAG_START = "start_data";
+	public static final String FLAG_DATA = "data";
+	public static final String FLAG_PHOTODATA_IMG = "photo_data_imgurl";
+	public static final String FLAG_PHOTODATA_COL= "photo_data_color";
 	public static final String BASE_URL  = "http://gank.io/api/";
 	public static final String PATH_DATA =
 			GankApplication.getInstance().getCacheDir().getAbsolutePath() + File.separator + "data";

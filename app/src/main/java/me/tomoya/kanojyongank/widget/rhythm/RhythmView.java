@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import me.tomoya.kanojyongank.R;
+import me.tomoya.kanojyongank.util.AnimatorUtils;
 
 import static android.content.ContentValues.TAG;
 

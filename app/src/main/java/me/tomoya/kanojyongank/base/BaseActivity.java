@@ -1,5 +1,6 @@
 package me.tomoya.kanojyongank.base;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
@@ -51,6 +52,9 @@ public abstract class BaseActivity<T extends BaseContract.Presenter> extends RxA
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+		}
 		//get annotations and properties
 		if (getClass().isAnnotationPresent(PropertiesInject.class)) {
 			PropertiesInject annotation = getClass().getAnnotation(PropertiesInject.class);

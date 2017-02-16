@@ -69,7 +69,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseAdapter.VH
 		 */
 		static VH getVH(ViewGroup parent, @LayoutRes int layoutId) {
 
-			View view = LayoutInflater.from(parent.getContext()).inflate(layoutId, null, false);
+			View view = LayoutInflater.from(parent.getContext()).inflate(layoutId, parent, false);
 			return new VH(view);
 		}
 

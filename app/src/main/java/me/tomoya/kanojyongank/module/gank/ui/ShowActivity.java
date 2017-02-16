@@ -7,12 +7,13 @@ import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.BindView;
+import butterknife.OnClick;
 import butterknife.OnPageChange;
-import com.jakewharton.rxbinding.view.RxView;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,19 +30,21 @@ import me.tomoya.kanojyongank.widget.EzScrollViewPager;
 import me.tomoya.kanojyongank.widget.rhythm.IChangePagerListener;
 import me.tomoya.kanojyongank.widget.rhythm.RhythmView;
 import me.tomoya.kanojyongank.widget.rhythm.RhythmViewAdapter;
-import rx.functions.Action1;
+
+import static android.view.View.GONE;
 
 @PropertiesInject(contentViewId = R.layout.activity_show, isStatusBarTranslucent = true)
 public class ShowActivity extends BaseActivity<MainPresenter> implements MainContract.View {
 	private static final String TAG = "ShowActicity";
 
-	@BindView(R.id.activity_show) View              mMainView;
-	@BindView(R.id.btn_logo)      TextView          btnLogo;
-	@BindView(R.id.text_date)     TextView          textDate;
-	@BindView(R.id.text_day)      TextView          textDay;
-	@BindView(R.id.rhythm_view)   RhythmView        rhythmView;
-	@BindView(R.id.ibtn_rocket)   ImageButton       ibtnRocket;
-	@BindView(R.id.vp_show)       EzScrollViewPager viewPager;
+	@BindView(R.id.activity_show)  View              mMainView;
+	@BindView(R.id.btn_logo)       TextView          btnLogo;
+	@BindView(R.id.text_date)      TextView          textDate;
+	@BindView(R.id.text_day)       TextView          textDay;
+	@BindView(R.id.rhythm_view)    RhythmView        rhythmView;
+	@BindView(R.id.ibtn_rocket)    ImageButton       ibtnRocket;
+	@BindView(R.id.container_date) LinearLayout      containerData;
+	@BindView(R.id.vp_show)        EzScrollViewPager viewPager;
 
 	private KanojyoPagerAdapter fragmentAdapter;
 	private RhythmViewAdapter   adapter;
@@ -59,25 +62,30 @@ public class ShowActivity extends BaseActivity<MainPresenter> implements MainCon
 		super.onCreate(savedInstanceState);
 		getActivityComponent().inject(this);
 		mPresenter.attachView(this);
-		//Window window = this.getWindow();
-		////绘制完成后加载数据
-		//window.getDecorView().post(() -> mPresenter.getDailyData());
 		initData();
 		initViews();
 		initActions();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		AnimatorUtils.animFadeIn(containerData);
+		//containerData.setVisibility(View.VISIBLE);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		AnimatorUtils.animFadeOut(containerData);
+		//containerData.setVisibility(View.GONE);
 	}
 
 	private void initData() {
 		kanojyoTachi = new ArrayList<>();
 	}
 
-	public void initActions() {
-		RxView.clicks(ibtnRocket).subscribe(new Action1<Void>() {
-			@Override
-			public void call(Void aVoid) {
-				viewPager.setCurrentItem(0);
-			}
-		});
+	private void initActions() {
 		rhythmView.setListener(new IChangePagerListener() {
 			@Override
 			public void onSelected(final int position) {
@@ -90,7 +98,7 @@ public class ShowActivity extends BaseActivity<MainPresenter> implements MainCon
 		});
 	}
 
-	public void initViews() {
+	private void initViews() {
 		//rhythmview
 		int height = (int) rhythmView.getItemWidth() + (int) TypedValue.applyDimension(
 				TypedValue.COMPLEX_UNIT_DIP, 10.0F, getResources().getDisplayMetrics());
@@ -115,10 +123,10 @@ public class ShowActivity extends BaseActivity<MainPresenter> implements MainCon
 		moveAppPager(position);
 	}
 
-	//@OnClick(R.id.ibtn_rocket)
-	//void toFirstPage() {
-	//	viewPager.setCurrentItem(0);
-	//}
+	@OnClick(R.id.ibtn_rocket)
+	void toFirstPage() {
+		viewPager.setCurrentItem(0);
+	}
 
 	/**
 	 * 移动到相应位置并设置背景颜色和rocket  caution:在view绘制完成后调用
@@ -157,7 +165,7 @@ public class ShowActivity extends BaseActivity<MainPresenter> implements MainCon
 
 	private void isRocketBtnShow(int position) {
 		if (position > 1) {
-			if (ibtnRocket.getVisibility() == View.GONE) {
+			if (ibtnRocket.getVisibility() == GONE) {
 				ibtnRocket.setVisibility(View.VISIBLE);
 				AnimatorUtils.animFadeIn(ibtnRocket);
 			}
@@ -167,7 +175,7 @@ public class ShowActivity extends BaseActivity<MainPresenter> implements MainCon
 				}
 
 				public void onAnimationEnd(Animator paramAnimator) {
-					ibtnRocket.setVisibility(View.GONE);
+					ibtnRocket.setVisibility(GONE);
 				}
 
 				public void onAnimationRepeat(Animator paramAnimator) {

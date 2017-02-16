@@ -1,16 +1,23 @@
 package me.tomoya.kanojyongank.base;
 
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Window;
 import android.view.WindowManager;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import me.tomoya.kanojyongank.R;
 import me.tomoya.kanojyongank.annotation.PropertiesInject;
 import me.tomoya.kanojyongank.widget.SlideLayout;
 
 public class SimpleActivity extends AppCompatActivity {
-	protected int     mContentViewId;
+	@Nullable @BindView(R.id.toolbar) protected Toolbar toolbar;
+
+	protected int mContentViewId;
+
 	/**
 	 * staus of statusbar
 	 */
@@ -37,6 +44,10 @@ public class SimpleActivity extends AppCompatActivity {
 		setContentView(mContentViewId);
 		mUbinder = ButterKnife.bind(this);
 		//status
+		if (toolbar != null) {
+			setSupportActionBar(toolbar);
+			getSupportActionBar().setDisplayShowTitleEnabled(false);
+		}
 		if (mIsStatusBarTranslucent) {
 			Window window = this.getWindow();
 			window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);

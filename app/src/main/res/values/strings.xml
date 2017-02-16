@@ -8,4 +8,12 @@
 
   <string name="logo_name">Gank</string>
   <string name="content_desc_arrow">expand/collapase</string>
+
+  <string name="via_fomat" translatable="false">(via @%s)</string>
+
+  <!--menu-->
+  <string name="menu_photo_share">share</string>
+  <string name="menu_photo_save">save</string>
+  <!--transition-->
+  <string name="transition_kano">kanoTransition</string>
 </resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="me.tomoya.kanojyongank.module.gank.ui.PhotoActivity">
+  <item
+      android:id="@+id/menu_action_save"
+      android:icon="@drawable/avd_save"
+      android:title="@string/menu_photo_save"
+      app:showAsAction="ifRoom"/>
+  <item
+      android:id="@+id/menu_action_share"
+      android:icon="@drawable/avd_share"
+      android:title="@string/menu_photo_share"
+      app:showAsAction="always"
+      />
+
+
+</menu>

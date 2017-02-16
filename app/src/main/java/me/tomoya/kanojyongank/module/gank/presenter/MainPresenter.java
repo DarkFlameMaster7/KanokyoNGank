@@ -26,7 +26,6 @@ public class MainPresenter extends RxPresenter<MainContract.View>
 
 	@Inject
 	public MainPresenter(RetrofitWrapper retrofitWrapper) {
-		Log.e("MainPresenterInjcet", "MainPresenter: involked");
 		mRetrofitWrapper = retrofitWrapper;
 		getDailyData();
 	}
@@ -61,8 +60,8 @@ public class MainPresenter extends RxPresenter<MainContract.View>
 
 					@Override
 					public void onNext(List<Kanojyo> kanojyos) {
-						Log.e("data", "onNext: " + kanojyos.toString());
 						mView.fetchData(kanojyos);
+						System.out.printf(""+kanojyos.toString());
 					}
 				});
 		addSubscription(subscription);

@@ -25,8 +25,6 @@ public class CommonUtils {
 				return result.瞎推荐List;
 			case "前端":
 				return result.frontList;
-			case "福利":
-				return result.妹纸List;
 			default:
 				return null;
 		}

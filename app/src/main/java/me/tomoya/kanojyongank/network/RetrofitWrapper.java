@@ -1,13 +1,10 @@
 package me.tomoya.kanojyongank.network;
 
-import java.io.File;
 import me.tomoya.kanojyongank.BuildConfig;
 import me.tomoya.kanojyongank.bean.GankData;
 import me.tomoya.kanojyongank.bean.KanojyoData;
 import me.tomoya.kanojyongank.bean.ShortFilmData;
-import me.tomoya.kanojyongank.common.GContants;
 import me.tomoya.kanojyongank.network.api.GankApi;
-import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -40,10 +37,10 @@ public class RetrofitWrapper {
 		}
 		int cacheSize = 20 * 1024 * 1024;
 
-		File  cacheFile = new File(GContants.PATH_CACHE);
-		Cache cache     = new Cache(cacheFile, cacheSize);
-
-		builder.cache(cache);
+		//File  cacheFile = new File(GContants.PATH_CACHE);
+		//Cache cache     = new Cache(cacheFile, cacheSize);
+		//
+		//builder.cache(cache);
 		builder.retryOnConnectionFailure(true);
 		mOkHttpClient = builder.build();
 	}

@@ -16,8 +16,8 @@ import me.tomoya.kanojyongank.annotation.PropertiesInject;
  * A simple {@link Fragment} subclass.
  */
 public abstract class BaseFragment extends Fragment {
-	private Activity mActivity;
-	private Context  mContext;
+	protected Activity mActivity;
+	protected Context  mContext;
 	private Unbinder mUnbinder;
 
 	private int     mContentViewId;
@@ -94,6 +94,13 @@ public abstract class BaseFragment extends Fragment {
 		hasFetchData = false;
 		isViewPrepared = false;
 		mUnbinder.unbind();
+	}
+
+	@Override
+	public void onDetach() {
+		super.onDetach();
+		mActivity = null;
+		mContext = null;
 	}
 
 	@Override

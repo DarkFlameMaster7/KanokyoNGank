@@ -4,8 +4,11 @@ import me.tomoya.kanojyongank.bean.GankData;
 import me.tomoya.kanojyongank.bean.KanojyoData;
 import me.tomoya.kanojyongank.bean.ShortFilmData;
 
+import okhttp3.ResponseBody;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Streaming;
+import retrofit2.http.Url;
 import rx.Observable;
 
 /**
@@ -27,4 +30,8 @@ public interface GankApi {
 	//休閒視頻 http://gank.io/api/data/休息视频/10/1
 	@GET("data/休息视频/10/{page}")
 	Observable<ShortFilmData> getShortFilmData(@Path("page") int page);
+
+	@Streaming // instead of moving the entire file into memory, it`ll pas along the bytes right way
+	@GET
+	Observable<ResponseBody> downloadImageFromNet(@Url String imgUrl);
 }

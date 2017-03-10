@@ -17,5 +17,6 @@ public class GContants {
 	public static final String PATH_DATA =
 			GankApplication.getInstance().getCacheDir().getAbsolutePath() + File.separator + "data";
 
-	public static final String PATH_CACHE = PATH_DATA + "/NetCache";
+	public static final String PATH_CACHE = PATH_DATA + "/netcache";
+	public static final String PATH_CACHE_WEB = PATH_DATA + "/webcache";
 }

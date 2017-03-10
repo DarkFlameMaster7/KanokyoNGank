@@ -6,7 +6,6 @@ import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -19,14 +18,16 @@ import com.facebook.drawee.view.DraweeTransition;
 import com.facebook.drawee.view.SimpleDraweeView;
 import me.tomoya.kanojyongank.R;
 import me.tomoya.kanojyongank.annotation.PropertiesInject;
-import me.tomoya.kanojyongank.base.SimpleActivity;
+import me.tomoya.kanojyongank.base.BaseActivity;
 import me.tomoya.kanojyongank.common.GContants;
+import me.tomoya.kanojyongank.module.gank.presenter.PhotoPresenter;
+import me.tomoya.kanojyongank.module.gank.presenter.contract.PhotoContract;
 import me.tomoya.kanojyongank.util.ImageLoader;
 import me.tomoya.kanojyongank.util.ScreenUtils;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
 @PropertiesInject(contentViewId = R.layout.activity_photo, isStatusBarTranslucent = true)
-public class PhotoActivity extends SimpleActivity {
+public class PhotoActivity extends BaseActivity<PhotoPresenter> implements PhotoContract.View {
 	private String mImgUrl;
 	PhotoViewAttacher mAttcher;
 
@@ -43,6 +44,8 @@ public class PhotoActivity extends SimpleActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		getActivityComponent().inject(this);
+		mPresenter.attachView(this);
 		initData();
 		initView();
 	}
@@ -95,11 +98,16 @@ public class PhotoActivity extends SimpleActivity {
 				Toast.makeText(this, "Shared!", Toast.LENGTH_SHORT).show();
 				return true;
 			case R.id.menu_action_save:
-				Toast.makeText(this, "Saved!", Toast.LENGTH_SHORT).show();
+				mPresenter.savePhoto(mImgUrl);
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
 		}
+	}
+
+	@Override
+	public void useNightMode() {
+
 	}
 
 	private class OnKanoTouchListener implements View.OnTouchListener {
@@ -129,9 +137,8 @@ public class PhotoActivity extends SimpleActivity {
 						activityPhoto.getBackground().setAlpha(128);
 					} else {
 						double ratioAlpha = (Math.abs(dY) / 400.0) * 127;
-						double alpha = ((Math.abs(dY)/400.0)*47);
-						Log.e("value", "onTouch: "+alpha+"    "+ratioAlpha );
-						activityPhoto.getBackground().setAlpha(175-(int)alpha);
+						double alpha = ((Math.abs(dY) / 400.0) * 47);
+						activityPhoto.getBackground().setAlpha(175 - (int) alpha);
 					}
 					v.requestLayout();
 					break;

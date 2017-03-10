@@ -60,7 +60,6 @@ public class GankActivity extends BaseActivity<GankPresenter> implements GankCon
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		getActivityComponent().inject(this);
 		mPresenter.attachView(this);
 		initData();

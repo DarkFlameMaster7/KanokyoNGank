@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'me.tatarka.retrolambda'
 def config = rootProject.ext.android
 // 配置
 def dep = rootProject.ext.dependencies
@@ -21,10 +22,10 @@ android {
   //  dexOptions {
   //    incremental true
   //  }
-//  compileOptions {
-//    sourceCompatibility JavaVersion.VERSION_1_8
-//    targetCompatibility JavaVersion.VERSION_1_8
-//  }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
   //处理冲突
   packagingOptions {
     exclude 'META-INF/DEPENDENCIES.txt'
@@ -74,6 +75,7 @@ dependencies {
   compile dep["rxjava"]
   compile dep["rxandroid"]
   compile dep["rxbinding"]
+  compile dep["rxpermissions"]
   compile 'com.jakewharton.rxbinding:rxbinding-support-v4:1.0.0'
   compile dep["retrofit-rxadapter"]
   compile dep["retrofit-converter"]

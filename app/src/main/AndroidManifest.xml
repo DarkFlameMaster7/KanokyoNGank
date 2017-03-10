@@ -4,6 +4,7 @@
 
   <uses-permission android:name="android.permission.INTERNET"/>
 
+
   <application
       android:name=".GankApplication"
       android:allowBackup="true"
@@ -36,7 +37,8 @@
     </activity>
     <activity android:name=".base.SimpleActivity">
     </activity>
-    <activity android:name=".module.gank.ui.PhotoActivity"
+    <activity
+        android:name=".module.gank.ui.PhotoActivity"
         android:theme="@style/AppTheme.Appcompat.Translucent">
     </activity>
   </application>

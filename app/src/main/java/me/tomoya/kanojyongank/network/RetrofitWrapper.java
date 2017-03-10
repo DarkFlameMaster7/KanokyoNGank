@@ -6,6 +6,7 @@ import me.tomoya.kanojyongank.bean.KanojyoData;
 import me.tomoya.kanojyongank.bean.ShortFilmData;
 import me.tomoya.kanojyongank.network.api.GankApi;
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -71,5 +72,9 @@ public class RetrofitWrapper {
 
 	public Observable<ShortFilmData> fetchShortFilmData(int page) {
 		return mGankApi.getShortFilmData(page);
+	}
+
+	public Observable<ResponseBody> downloadImageFromNew(String imgUrl) {
+		return mGankApi.downloadImageFromNet(imgUrl);
 	}
 }

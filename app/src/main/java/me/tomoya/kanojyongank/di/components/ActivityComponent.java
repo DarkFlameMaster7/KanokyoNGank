@@ -6,6 +6,7 @@ import dagger.Component;
 import me.tomoya.kanojyongank.di.modules.ActivityModule;
 import me.tomoya.kanojyongank.di.scopes.GScope;
 import me.tomoya.kanojyongank.module.gank.ui.GankActivity;
+import me.tomoya.kanojyongank.module.gank.ui.PhotoActivity;
 import me.tomoya.kanojyongank.module.gank.ui.ShowActivity;
 import me.tomoya.kanojyongank.module.gank.ui.WebActivity;
 import me.tomoya.kanojyongank.module.splash.SplashActivity;
@@ -27,4 +28,6 @@ public interface ActivityComponent {
 	void inject(WebActivity showActivity);
 
 	void inject(SplashActivity showActivity);
+
+	void inject(PhotoActivity photoActivity);
 }

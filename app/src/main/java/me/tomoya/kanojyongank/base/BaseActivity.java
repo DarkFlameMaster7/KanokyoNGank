@@ -75,6 +75,7 @@ public abstract class BaseActivity<T extends BaseContract.Presenter> extends RxA
 		}
 		if (toolbar != null) {
 			setSupportActionBar(toolbar);
+			getSupportActionBar().setDisplayShowTitleEnabled(false);
 		}
 
 		if (mEnableSlideExit) {

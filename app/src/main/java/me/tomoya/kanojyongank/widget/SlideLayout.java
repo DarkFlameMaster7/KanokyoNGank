@@ -3,12 +3,10 @@ package me.tomoya.kanojyongank.widget;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.widget.ViewDragHelper;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-
 import me.tomoya.kanojyongank.util.ScreenUtils;
 
 /**
@@ -41,7 +39,6 @@ public class SlideLayout extends FrameLayout {
 	}
 
 	private void init(Context context) {
-		Log.e("SlideLayout", "init: ");
 		mViewDragHelper = ViewDragHelper.create(this, callback);
 		mViewDragHelper.setEdgeTrackingEnabled(ViewDragHelper.EDGE_LEFT);
 		int[] srcSize = ScreenUtils.getScreenSize(context);

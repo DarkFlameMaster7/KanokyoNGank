@@ -36,6 +36,7 @@ ext {
           "rxbinding"           : "com.jakewharton.rxbinding:rxbinding:$configVersion.rxbinding",
           "rxlifecycle"         : "com.trello:rxlifecycle:$configVersion.rxlifecycle",
           "rxlifecycle-comp"    : "com.trello:rxlifecycle-components:$configVersion.rxlifecycle",
+          "rxpermissions"       : "com.tbruyelle.rxpermissions:rxpermissions:0.9.3@aar",
           //img
           "fresco"              : "com.facebook.fresco:fresco:$configVersion.fresco",
           "photoview"           : "com.github.chrisbanes.photoview:library:1.2.3",
